@@ -8,12 +8,7 @@ namespace helloapp
     {
         static void Main(string[] args)
         {
-            // var webRequest = HttpWebRequest.Create("http://www.yinwang.org/");
-            // var response = webRequest.GetResponse();
-            // var stream = response.GetResponseStream();
-            // var sr = new StreamReader(stream);
-            // var result = sr.ReadToEnd();
-            // System.Console.WriteLine(result);
+             Splider.GetArticlesTop10().ForEach(item=> Console.WriteLine(item));
         }
     }
 }
