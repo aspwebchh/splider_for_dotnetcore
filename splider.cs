@@ -6,12 +6,19 @@ using System.Text.RegularExpressions;
 using System;
 
 public class Splider{
+    private static String ListContent() {
+         var webRequest = HttpWebRequest.Create("http://www.yinwang.org/");
+        var response = webRequest.GetResponse();
+        var stream = response.GetResponseStream();
+        var listContent = string.Empty;
+        using( StreamReader sr = new StreamReader(stream) ) {
+            listContent = sr.ReadToEnd();
+        }
+        return listContent;
+    }
+
     public static List<(string,string)> GetArticlesTop10() {
-            var webRequest = HttpWebRequest.Create("http://www.yinwang.org/");
-            var response = webRequest.GetResponse();
-            var stream = response.GetResponseStream();
-            var sr = new StreamReader(stream);
-            var listContent = sr.ReadToEnd();
+            var listContent =ListContent();
             var regex = new Regex("<li class=\"list-group-item title\">[\\s\\S]+?href=\\\"([^\"]+)\\\">([^<]+)");
             var matches = regex.Matches(listContent);
             var result = new List<(string,string)>();
